@@ -136,9 +136,9 @@ public class MainController {
     }
 
 
-    @GetMapping("/mbti/{name}")
+    @GetMapping("/mbtitest/{name}")
     @ResponseBody
-    public String showMbti(@PathVariable String name) {
+    public String showMbtiTets(@PathVariable String name) {
         //http://localhost:8080/mbti/{name}  >> @PathVariable
         System.out.println("15강, MBTI 만들어보자  ::::: " + name ) ;
         String rs = switch (name) {
@@ -152,6 +152,23 @@ public class MainController {
         } ;
         return rs ;
     }
+
+    @GetMapping("/mbti/{name}")
+    @ResponseBody
+    public String showMbti(@PathVariable String name) {
+        //http://localhost:8080/mbti/{name}  >> @PathVariable
+        System.out.println("15강, MBTI 만들어보자  ::::: " + name ) ;
+        String rs = switch (name) {
+            case "홍길동" -> {
+                yield  "INFP___" + name   ;  // switch 안에서 return 을 쓰면 헷갈릴까봐 yield로 사요 ㅇ
+            }
+            case "홍길순" -> "ENFP___" + name  ;
+            case "임꺽정", "아이유" -> "ISTP___" + name ;
+            default ->  "모름";
+        } ;
+        return rs ;
+    }
+
 
 
 
