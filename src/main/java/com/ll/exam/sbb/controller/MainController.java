@@ -1,8 +1,11 @@
 package com.ll.exam.sbb.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -61,6 +64,15 @@ public class MainController {
            <h1> a+b : %d</h1>
            <h1>GetMapping : 주소창에 입력 받은 Int 값을 sum하기  </h1>        
            """.formatted(a+ b) ;
+    }
+    @GetMapping("/plusJsp")
+    @ResponseBody
+    //http://localhost:8080/plusJsp?a=1&b=2
+    public void showPlusJsp(HttpServletRequest req, HttpServletResponse resp ) throws IOException {
+        System.out.println("14강 서블릿 방식으로 요청&응답하기  ::::: "  ) ;
+        int a= Integer.parseInt(req.getParameter("a")) ;
+        int b= Integer.parseInt(req.getParameter("b")) ;
+        resp.getWriter().append(a+b+ "") ;
     }
 
     @GetMapping("/minus")
@@ -122,6 +134,25 @@ public class MainController {
                 .mapToObj(i -> "%d * %d = %d".formatted(finalDan,i,finalDan * i ))
                 .collect(Collectors.joining("<br>"));
     }
+
+
+    @GetMapping("/mbti/{name}")
+    @ResponseBody
+    public String showMbti(@PathVariable String name) {
+        //http://localhost:8080/mbti/{name}  >> @PathVariable
+        System.out.println("15강, MBTI 만들어보자  ::::: " + name ) ;
+        String rs = switch (name) {
+            case "홍길동" -> "INFP" ;
+            case "홍길순" -> "ENFP" ;
+            case "임꺽정" -> "AAAA" ;
+            case "가나다" -> "BBBB" ;
+            case "마바사" -> "CCCC" ;
+            case "아자차" -> "DDDD" ;
+            default ->  "모름";
+        } ;
+        return rs ;
+    }
+
 
 
 
