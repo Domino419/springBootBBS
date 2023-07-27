@@ -160,7 +160,8 @@ public class MainController {
         System.out.println("15강, MBTI 만들어보자  ::::: " + name ) ;
         String rs = switch (name) {
             case "홍길동" -> {
-                yield  "INFP___" + name   ;  // switch 안에서 return 을 쓰면 헷갈릴까봐 yield로 사요 ㅇ
+                char j = 'J' ;
+                yield  "INF" + j  +"___" +  name   ;  // switch 안에서 return 을 쓰면 헷갈릴까봐 yield로 사용
             }
             case "홍길순" -> "ENFP___" + name  ;
             case "임꺽정", "아이유" -> "ISTP___" + name ;
