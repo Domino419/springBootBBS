@@ -2,6 +2,7 @@ package com.ll.exam.sbb.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -169,6 +170,43 @@ public class MainController {
         } ;
         return rs ;
     }
+
+    @GetMapping("/saveSession/{name}/{value}")
+    @ResponseBody
+    public String saveSession(@PathVariable String name, @PathVariable String value, HttpServletRequest req) {
+        //http://localhost:8080/saveSession/age/10
+        System.out.println("17강~18강,  세션으로 나이 저장하기 :::: name : " + name + "value : " + value) ;
+        HttpSession session = req.getSession() ;
+        session.setAttribute(name, value) ;
+        System.out.println("세션변수의 값 확인 : " + session ) ;
+        return "세션변수 %s의 값이 %s(으)로 설정되었습니다!!".formatted(name, value);
+    }
+
+    @GetMapping("/getSessionJsessionid/{name}/{value}")
+    @ResponseBody
+    //HttpServletRequest req를 할 때 쿠키가 들어옴, 쿠키 안에는 JSESSIONID이 들어있고 거기서 세션을 얻을 수 있다.
+    // 해당 방법은 쿠키를 통해서 세션을 가져오는 방법
+    public String getSessionJsessionid(@PathVariable String name, @PathVariable String value, HttpServletRequest req) {
+        //http://localhost:8080/getSessionJsessionid/age/10
+        System.out.println("17강~18강,  세션으로 나이 저장하기 :::: name : " + name + "value : " + value) ;
+        HttpSession session = req.getSession() ;
+        session.setAttribute(name, value) ;
+        System.out.println("세션변수의 값 확인 : " + session ) ;
+        return "세션변수 %s의 값이 %s(으)로 설정되었습니다!!".formatted(name, value);
+    }
+
+    @GetMapping("/getSession/{value}")
+    @ResponseBody
+    // session을 통해서 바로 받아오는 방법
+    public String getSession(@PathVariable String value, HttpSession session) {
+        //http://localhost:8080/getSession/age
+        System.out.println("17강~18강,  세션으로 나이 저장하기 :::: value : " + value ) ;
+        String valueTmp = (String) session.getAttribute(value);
+        System.out.println("세션변수의 값 확인 : " + valueTmp ) ;
+        return "세션변수 %s의 값이 %s입니다!!! !".formatted(value, valueTmp);
+    }
+
+
 
 
 
