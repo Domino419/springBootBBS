@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -208,17 +210,36 @@ public class MainController {
         return "세션변수 %s의 값이 %s입니다!!! !".formatted(value, valueTmp);
     }
 
+
+    private List<Article> articles = new ArrayList<>();
+
     @GetMapping("/addArticle/{title}/{body}")
     @ResponseBody
     public String addArticle(@PathVariable String title, @PathVariable String body) {
         //http://localhost:8080/addArticle/title/body
         System.out.println("19강,  addArticle action  :::: title : " + title ) ;
         Article article = new Article(title, body) ;
-       //  System.out.println("값 체크 해보자  ::::  bbsNoConut : " + bbsNoConut + " title : " +title + " body : " + body ) ;
+        articles.add(article) ;
         return "%d번 게시물이 생성 되었습니다!!!".formatted(article.getId()) ;
     }
 
+
+    @GetMapping("/Article/{id}")
+    @ResponseBody
+    public Article getArticle(@PathVariable int id) {
+        //http://localhost:8080/Article/3
+        // 출력결과 {"id":3}
+        Article article = articles // id가 1번인 게시물이 앞에서 3번째
+                .stream()
+                .filter(a -> a.getId() == id)
+                .findFirst()
+                .get();
+        return article;
+    }
+
+
     @AllArgsConstructor
+    @Getter
     class Article {
         private static int bbsNoConut = 0 ;
 
