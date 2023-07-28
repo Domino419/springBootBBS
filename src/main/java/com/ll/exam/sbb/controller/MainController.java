@@ -3,6 +3,7 @@ package com.ll.exam.sbb.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -205,6 +206,25 @@ public class MainController {
         System.out.println("세션변수의 값 확인 : " + valueTmp ) ;
         return "세션변수 %s의 값이 %s입니다!!! !".formatted(value, valueTmp);
     }
+
+    @GetMapping("/addArticle/{title}/{body}")
+    @ResponseBody
+    public String addArticle(@PathVariable String title, @PathVariable String body) {
+        //http://localhost:8080/addArticle/title/body
+        System.out.println("19강,  addArticle action  :::: title : " + title ) ;
+        int id = 1;
+        Article article = new Article(id, title, body) ;
+        System.out.println("값 체크 해보자  :::: id : " + id + " title : " +title + " body : " + body ) ;
+        return "%d번 게시물이 생성 되었습니다!!!".formatted(id, title, body) ;
+    }
+
+    @AllArgsConstructor
+    class Article {
+        private int id ;
+        private String title ;
+        private String body ;
+    }
+
 
 
 
