@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -211,7 +212,19 @@ public class MainController {
     }
 
 
-    private List<Article> articles = new ArrayList<>();
+    //private List<Article> articles = new ArrayList<>();
+
+    //private List<Article> articles = Arrays.asList(new Article("제목","내용"), new Article("제목","내용"));
+    // ↑ 불변성을 가진 리스트
+
+    private List<Article> articles = new ArrayList<>(
+            Arrays.asList(
+                    new Article("제목","내용"),
+                    new Article("제목","내용"),
+                    new Article("제목","내용")
+            )
+    );
+    // ↑ 수정도 삭제도 가능한 리스트
 
     @GetMapping("/addArticle/{title}/{body}")
     @ResponseBody
@@ -236,6 +249,29 @@ public class MainController {
                 .get();
         return article;
     }
+
+
+    @GetMapping("/modifyArticle/{id}")
+    @ResponseBody
+    public Article modifyArticle(@PathVariable int id,String title, String body) {
+        //http://localhost:8080/modifyArticle/1
+        System.out.println("19강,  addArticle action  :::: id  : " + id ) ;
+        Article article = articles // id가 1번인 게시물이 앞에서 3번째
+                .stream()
+                .filter(a -> a.getId() == id)
+                .findFirst()
+                .get();
+/*
+
+        if(article ==null)
+        {
+            return "%d번 게시물은 존재하지 않습니다.".formatted(id) ;
+        }*/
+        return article;
+    }
+
+
+
 
 
     @AllArgsConstructor
