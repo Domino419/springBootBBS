@@ -1,0 +1,100 @@
+ - 깡통 : JSP
+   - 기반, 설정
+
+ - 스프링
+  - 설정
+  - 일일이 조합을 해줘야 하는 거 ..
+
+- 스프링부트
+ - 기반, 설정, 연동
+ - 쓰기만 하면 됨..
+
+
+QNA 서비스 - 7강
+MainController :: index 추가
+
+<div></div>   -- DIV 엘리먼트..
+
+
+
+주소창에서
+http://localhost:8080/sbb
+첫시작이라고 console에 찍힘! 오예 ㅋ
+
+
+ QNA 서비스 - 8강
+@ResponseBody
+ >> Body에서 출력을 해줘라~ 라는 의미
+
+ QNA 서비스, 9강, 라이브리로드 익스텐션 설치하여, 브라우저 자동갱신
+ dev tools  + 크롬 live reload 익스텐션
+ - 자바소스 코드 변경 > 서버에 자동반영
+ - 매번 서버를 껏다가 킬 필요가 없다.
+
+
+https://wiken.io/ken/12614
+
+23 07 15, 스프링부트 - QNA 서비스, 11강, @GetMapping, @PostMapping, @RequestParam
+
+
+
+>>> 11강부터 다시 보자.
+
+GET
+클라이언트에서 서버로 어떠한 리소스로 부터 정보를 요청 (쿼리스트링)
+SELECT 에 가까움
+멱등성 ( 연산 여러번 해도 값이 안 바뀜)
+
+POST
+클라이언트에서 서버로 리소스를 생성하거나 업데이트할 때 ( 바디에 담아서 전달)
+멱등성 X
+
+
+>> 12강
+http://localhost:8080/plus?a=1&b=5
+
+
+
+>> 13강부터 보면 됨 - !
+구구단을 for문으로 작성
+구구단을 스트림으로 작성
+
+https://wiken.io/ken/12614
+
+내채공 강의 : fastcampus.co.kr/b2g_kdigitalcredit_java
+
+
+>> 14강.서블릿 방식으로 요청과 응답 비교하기.
+
+>> 15강. mbti , swith 표현식, break 생략
+
+>> 16강, switch 표현식, 여러줄로 표현하기.
+
+>> 17강 세션으로 나이 저장하기 (문제)
+
+>>18강, 세션으로 나이 저장하기(2)
+
+
+ >> 19강 - addArticle action 부터 보기
+
+
+
+netstat -ano | findstr :8080
+
+taskkill /F /PID 5408
+
+
+>> 22강 modifyAction 부터 보면 됨
+
+//http://localhost:8080/mbti/modifyArticle?=id=1&title=제목 new&body=내용 new
+1번 게시물이 수정되었습니다.
+
+//http://localhost:8080/mbti/deleteArticle?id=1
+1번 개시물이 수정되었습니다.
+
+
+http://localhost:8080/Article/까지만 넣어뒀음..
+
+
+20230811 - 1146
+21강 부터 다시 듣는 중.

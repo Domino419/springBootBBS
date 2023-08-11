@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -211,20 +212,20 @@ public class MainController {
         return "세션변수 %s의 값이 %s입니다!!! !".formatted(value, valueTmp);
     }
 
-
+    // ↓  불변성을 가진 리스트
     //private List<Article> articles = new ArrayList<>();
-
     //private List<Article> articles = Arrays.asList(new Article("제목","내용"), new Article("제목","내용"));
-    // ↑ 불변성을 가진 리스트
 
+
+    // ↓  수정도 삭제도 가능한 리스트 . 프로그램 시작하면서 게시물 3개를 가지고 시작하게 함
     private List<Article> articles = new ArrayList<>(
             Arrays.asList(
-                    new Article("제목","내용"),
-                    new Article("제목","내용"),
-                    new Article("제목","내용")
+                    new Article("제목1","내용1"),
+                    new Article("제목2","내용2"),
+                    new Article("제목3","내용3")
             )
     );
-    // ↑ 수정도 삭제도 가능한 리스트
+
 
     @GetMapping("/addArticle/{title}/{body}")
     @ResponseBody
@@ -241,6 +242,7 @@ public class MainController {
     @ResponseBody
     public Article getArticle(@PathVariable int id) {
         //http://localhost:8080/Article/3
+        System.out.println("21강,  getArticle  :::: getArticle :  article 3개만 넣어놔서 ID에 3 이상 넣으면 에러남 "  ) ;
         // 출력결과 {"id":3}
         Article article = articles // id가 1번인 게시물이 앞에서 3번째
                 .stream()
@@ -253,21 +255,26 @@ public class MainController {
 
     @GetMapping("/modifyArticle/{id}")
     @ResponseBody
-    public Article modifyArticle(@PathVariable int id,String title, String body) {
+    public String modifyArticle(@PathVariable int id,String title, String body) {
         //http://localhost:8080/modifyArticle/1
-        System.out.println("19강,  addArticle action  :::: id  : " + id ) ;
+        System.out.println("22강, modifyArticle action  :::: id  : " + id ) ;
+        //http://localhost:8080/modifyArticle/3?title=%EC%A0%9C%EB%AA%A9%20new&body=%EB%82%B4%EC%9A%A9%20new   new 바꾸고 나서
+        //http://localhost:8080/Article/3 들어가면 값이 바뀐 거 확인됨.
+
         Article article = articles // id가 1번인 게시물이 앞에서 3번째
                 .stream()
                 .filter(a -> a.getId() == id)
                 .findFirst()
-                .get();
-/*
+                .orElse(null) ;   // id가 없으면 null을 받아서 게시물이 없다고 멘트 띄워주기
+                //.get();
 
         if(article ==null)
         {
             return "%d번 게시물은 존재하지 않습니다.".formatted(id) ;
-        }*/
-        return article;
+        }
+        article.setTitle(title) ;
+        article.setBody(body) ;
+        return "%d번 게시물은 수정되었습니다..".formatted(id) ;
     }
 
 
@@ -276,6 +283,7 @@ public class MainController {
 
     @AllArgsConstructor
     @Getter
+    @Setter
     class Article {
         private static int bbsNoConut = 0 ;
 
