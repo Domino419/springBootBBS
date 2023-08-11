@@ -278,6 +278,27 @@ public class MainController {
     }
 
 
+    @GetMapping("/deleteArticle/{id}")
+    @ResponseBody
+    public String deleteArticle(@PathVariable int id,String title, String body) {
+        //http://localhost:8080/deleteArticle/1
+        System.out.println("24강, deleteArticle action  :::: id  : " + id ) ;
+
+        Article article = articles // id가 1번인 게시물이 앞에서 3번째
+                .stream()
+                .filter(a -> a.getId() == id)
+                .findFirst()
+                .orElse(null) ;   // id가 없으면 null을 받아서 게시물이 없다고 멘트 띄워주기
+
+        if(article ==null)
+        {
+            return "%d번 게시물은 존재하지 않습니다.".formatted(id) ;
+        }
+        articles.remove(article) ;
+        return "%d번 게시물은 삭제되었습니다..".formatted(id) ;
+    }
+
+
 
 
 
