@@ -3,9 +3,7 @@ package com.ll.exam.sbb.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -299,6 +297,40 @@ public class MainController {
     }
 
 
+/*    @GetMapping("/addPerson/{id}/{age}/{name}")
+    @ResponseBody
+    public Person addPerson( @PathVariable int id,@PathVariable int age, @PathVariable String name) {
+        //http://localhost:8080/addPerson/401/33/%EC%9D%B4%EB%A6%84
+        System.out.println("25강, action에서 스프링부트에 의해 자동으로 조립된 객체 입력 받기   - addPerson :::: name   : " + name ) ;
+        Person Person = new Person (id, age, name) ;
+        return Person ;
+    }*/
+
+
+    // Action method
+    //보통 : 우리가 만들고 우리가 사용 >>
+
+    @GetMapping("/addPerson/{id}")
+    @ResponseBody
+    public Person addPerson(Person Person) {
+        //http://localhost:8080/addPerson/13?age=20&name=%ED%99%8D%EA%B8%B8%EB%8F%99
+        System.out.println("25강, action에서 스프링부트에 의해 자동으로 조립된 객체 입력 받기  - addPerson/{id} :::: Person   : " + Person);
+        return Person;
+    }
+
+
+    @GetMapping("/addPersonOnlyWay/{id}/{age}/{name}")
+    @ResponseBody
+    public Person addPersonOnlyWay( @PathVariable int id,@PathVariable int age, @PathVariable String name) {
+        //http://localhost:8080/addPersonOnlyWay/401/33/홍길동
+        System.out.println("25강, action에서 스프링부트에 의해 자동으로 조립된 객체 입력 받기 - addPersonOnlyWay/{id}/{age}/{name}   :::: name   : " + name ) ;
+        Person Person = new Person (id, age, name) ;
+        return Person ;
+    }
+
+
+
+
 
 
 
@@ -316,6 +348,23 @@ public class MainController {
         public Article(String title, String body){
             this(++bbsNoConut, title, body) ;
         }
+    }
+
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    public class Person {
+        private int id ;
+        private int age ;
+        private String name ;
+
+        public Person() {
+            int id  ;
+            int age ;
+            String name ;
+
+        }
+
     }
 
 
